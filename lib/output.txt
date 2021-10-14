@@ -1,0 +1,5 @@
+{"Book\tAuthor\tAmount\tPrice":"The Compound Effect\tDarren Hardy\t5\t9.48"}
+{"Book\tAuthor\tAmount\tPrice":"The 7 Habits of Highly Effective People\tStephen R. Covey\t4\t23.48"}
+{"Book\tAuthor\tAmount\tPrice":"The Miracle Morning\tHal Elrod\t10\t21.34"}
+{"Book\tAuthor\tAmount\tPrice":"Influence: The Psychology of Persuasion\tRobert B. Cialdini\t4\t12.99"}
+{"Book\tAuthor\tAmount\tPrice":"The ONE Thing\tGary Keller\t1\t11.18"}
