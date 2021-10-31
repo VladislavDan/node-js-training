@@ -10,7 +10,8 @@
     "task1.2": "nodemon task1.2/index.js",
     "task1.3.1": "npm run babel && nodemon lib/task1.1.js",
     "task1.3.2": "npm run babel && nodemon lib/task1.2.js",
-    "task2.1": "nodemon task2.1/task2.1.js"
+    "task2.1": "nodemon task2.1/task2.1.js",
+    "task2.2": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task2.2.js'"
   },
   "repository": {
     "type": "git",
@@ -28,9 +29,13 @@
     "@babel/preset-env": "^7.15.8",
     "babel-eslint": "^8.2.6",
     "eslint": "^4.19.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/uuid": "^8.3.1",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
