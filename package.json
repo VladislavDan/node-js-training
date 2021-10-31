@@ -4,11 +4,13 @@
   "description": "",
   "scripts": {
     "babel": "./node_modules/.bin/babel task1.3 --out-dir lib --presets=@babel/env",
+    "babel_task2.1": "./node_modules/.bin/babel task2.1 --out-dir lib --presets=@babel/env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "task1.1": "nodemon task1.1/index.js",
     "task1.2": "nodemon task1.2/index.js",
     "task1.3.1": "npm run babel && nodemon lib/task1.1.js",
-    "task1.3.2": "npm run babel && nodemon lib/task1.2.js"
+    "task1.3.2": "npm run babel && nodemon lib/task1.2.js",
+    "task2.1": "nodemon task2.1/task2.1.js"
   },
   "repository": {
     "type": "git",
@@ -24,9 +26,16 @@
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.19.1",
     "nodemon": "^2.0.13"
   },
   "dependencies": {
-    "csvtojson": "^2.0.10"
-  }
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "joi": "^17.4.2",
+    "uuid": "^8.3.2"
+  },
+  "type": "module"
 }
