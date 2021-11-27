@@ -8,6 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node"
   },
-  "include": ["task2.2/**/*", "task3.1-3.2/**/*"],
+  "include": ["task2.2/**/*", "task3.1-3.2/**/*", "task4/**/*"],
   "exclude": ["node_modues"]
 }
