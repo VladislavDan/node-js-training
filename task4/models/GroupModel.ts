@@ -1,13 +1,17 @@
-import {Group} from '../data-access/DataBase.js';
+import {Group, UserGroup} from '../data-access/DataBase.js';
 
 export class GroupModel {
 
-    async deleteById(id: string) {
-        return await Group.destroy({
+    deleteById(id: string) {
+        return UserGroup.destroy({
+            where: {
+                groupid: id
+            }
+        }).then(() => Group.destroy({
             where: {
                 id
             }
-        });
+        }));
     }
 
     async findById(id: string) {

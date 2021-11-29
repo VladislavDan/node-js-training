@@ -53,3 +53,18 @@ export const UserGroup = DataBase().define('user_group', {
 }, {
     timestamps: false
 });
+
+User.belongsToMany(Group, {
+    through: UserGroup,
+    sourceKey: 'id',
+    foreignKey: 'userid',
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+});
+Group.belongsToMany(User, {
+    through: UserGroup,
+    sourceKey: 'id',
+    foreignKey: 'groupid',
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+});

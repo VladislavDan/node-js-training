@@ -27,6 +27,6 @@ CREATE TABLE user_groups (
   id SERIAL PRIMARY KEY,
   userId INT,
   groupId INT,
-  CONSTRAINT fk_groups FOREIGN KEY(userId) REFERENCES groups(id),
-  CONSTRAINT fk_users FOREIGN KEY(groupId) REFERENCES users(id)
+  CONSTRAINT fk_groups FOREIGN KEY(userId) REFERENCES groups(id) on delete cascade on update cascade,
+  CONSTRAINT fk_users FOREIGN KEY(groupId) REFERENCES users(id) on delete cascade on update cascade
 );
