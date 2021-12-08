@@ -13,7 +13,8 @@
     "task2.1": "nodemon task2.1/task2.1.js",
     "task2.2": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task2.2/task2.2.js'",
     "task3.1-3.2": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task3.1-3.2/index.js'",
-    "task4": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task4/index.js'"
+    "task4": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task4/index.js'",
+    "task5": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task5/index.js'"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,8 @@
     "joi": "^17.4.2",
     "pg": "^8.7.1",
     "sequelize": "^6.9.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
   },
   "type": "module"
 }
