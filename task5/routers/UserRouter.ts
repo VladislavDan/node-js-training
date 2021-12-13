@@ -4,6 +4,7 @@ import {UserService} from '../services/UserService';
 import {validationMiddleware} from '../common/validationMiddleware.js';
 import {Logger} from 'winston';
 import {serviceLoggerMiddleware} from '../common/serviceLoggerMiddleware.js';
+import {unhandledErrorLoggerMiddleware} from '../common/unhandledErrorLoggerMiddleware.js';
 
 export const UserRouter = (userService: UserService, logger: Logger) => {
     const schema = Joi.object().keys({
@@ -19,27 +20,39 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
     });
     router.delete('/users/:id',
         serviceLoggerMiddleware(logger, 'userService.deleteById'),
-        async (req: Request, res: Response) => {
+        async (req: Request, res: Response, next: NextFunction) => {
             const foundUser = req.user;
             if (!foundUser) {
                 res.status(404).json(getNotFoundUserResponse(req.params.id));
             } else {
-                await userService.deleteById(req.params.id);
-                res.status(204).send();
+                try {
+                    await userService.deleteById(req.params.id);
+                    res.status(204).send();
+                } catch (error) {
+                    next(error);
+                }
             }
-        });
+        },
+        unhandledErrorLoggerMiddleware(logger)
+    );
 
     router.put('/users', validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'userService.createUser'),
-        async (req: Request, res: Response) => {
-            await userService.createUser(req.body.login, req.body.password, req.body.age, false);
-            res.status(204).json('User created');
-        });
+        async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                await userService.createUser(req.body.login, req.body.password, req.body.age, false);
+                res.status(204).json('User created');
+            } catch (error) {
+                next(error);
+            }
+        },
+        unhandledErrorLoggerMiddleware(logger)
+    );
 
     router.post('/users/:id',
         validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'userService.changeUser'),
-        async (req: Request, res: Response) => {
+        async (req: Request, res: Response, next: NextFunction) => {
             const foundUser = req.user;
 
             if (!foundUser) {
@@ -48,10 +61,16 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
                 const login = req.body.login || foundUser.login;
                 const password = req.body.password || foundUser.password;
                 const age = req.body.age || foundUser.age;
-                await userService.changeUser(req.params.id, login, password, age, foundUser.isDeleted);
-                res.status(204).json();
+                try {
+                    await userService.changeUser(req.params.id, login, password, age, foundUser.isDeleted);
+                    res.status(204).json();
+                } catch (error) {
+                    next(error);
+                }
             }
-        });
+        },
+        unhandledErrorLoggerMiddleware(logger)
+    );
 
     router.get('/users/:id',
         serviceLoggerMiddleware(logger, 'userService.findById'),
@@ -63,17 +82,23 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
             } else {
                 res.json(foundUser);
             }
-        });
+        }
+    );
 
     router.get('/users',
         serviceLoggerMiddleware(logger, 'userService.findByName'),
-        async (req: Request, res: Response) => {
+        async (req: Request, res: Response, next: NextFunction) => {
             const loginSubstring = req.query.loginSubstring ? req.query.loginSubstring.toString() : '';
             const limit = Number(req.query.limit);
-            const foundUsers = await userService.findByName(loginSubstring, limit);
-
-            res.json(foundUsers);
-        });
+            try {
+                const foundUsers = await userService.findByName(loginSubstring, limit);
+                res.json(foundUsers);
+            } catch (error) {
+                next(error);
+            }
+        },
+        unhandledErrorLoggerMiddleware(logger)
+    );
 
     const getNotFoundUserResponse = (id: string) => {
         return {

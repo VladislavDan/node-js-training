@@ -15,18 +15,25 @@ const port = 3000;
 
 app.use(express.json());
 
-const infoLogger = winston.createLogger();
+const logger = winston.createLogger();
 
 if (process.env.NODE_ENV !== 'production') {
-    infoLogger.add(new winston.transports.Console({
+    logger.add(new winston.transports.Console({
         format: winston.format.simple()
     }));
 }
+
+process.on('uncaughtException', (err) => {
+    logger.log({
+        level: 'error',
+        message: `Error: ${JSON.stringify(err)}`
+    });
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.use('/', UserRouter(new UserService(new UserModel()), infoLogger));
-app.use('/', GroupRouter(new GroupService(new GroupModel()), infoLogger));
-app.use('/', UserGroupRouter(new UserGroupService(new UserGroupModel()), infoLogger));
+app.use('/', UserRouter(new UserService(new UserModel()), logger));
+app.use('/', GroupRouter(new GroupService(new GroupModel()), logger));
+app.use('/', UserGroupRouter(new UserGroupService(new UserGroupModel()), logger));
