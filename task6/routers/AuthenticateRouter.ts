@@ -3,7 +3,8 @@ import {validationMiddleware} from '../common/validationMiddleware.js';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import {AuthenticateService} from '../services/AuthenticateService.js';
-import {SECRET} from '../common/Constants.js';
+import {corsOptions, SECRET} from '../common/Constants.js';
+import cors from 'cors';
 
 export const AuthenticateRouter = (authenticateService: AuthenticateService) => {
     const schema = Joi.object().keys({
@@ -13,6 +14,7 @@ export const AuthenticateRouter = (authenticateService: AuthenticateService) => 
     const router = express.Router();
 
     router.post('/authenticate',
+        cors(corsOptions),
         validationMiddleware(schema),
         async (req: any, res: Response, next: NextFunction) => {
 

@@ -6,6 +6,8 @@ import {Logger} from 'winston';
 import {serviceLoggerMiddleware} from '../common/serviceLoggerMiddleware.js';
 import {unhandledErrorLoggerMiddleware} from '../common/unhandledErrorLoggerMiddleware.js';
 import {checkTokenMiddleware} from '../common/checkTokenMiddleware.js';
+import cors from 'cors';
+import {corsOptions} from '../common/Constants.js';
 
 export const UserRouter = (userService: UserService, logger: Logger) => {
     const schema = Joi.object().keys({
@@ -20,6 +22,7 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
         next();
     });
     router.delete('/users/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'userService.deleteById'),
         async (req: Request, res: Response, next: NextFunction) => {
@@ -39,6 +42,7 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
     );
 
     router.put('/users', validationMiddleware(schema),
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'userService.createUser'),
         async (req: Request, res: Response, next: NextFunction) => {
@@ -53,6 +57,7 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
     );
 
     router.post('/users/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'userService.changeUser'),
@@ -77,6 +82,7 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
     );
 
     router.get('/users/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'userService.findById'),
         (req: Request, res: Response) => {
@@ -91,6 +97,7 @@ export const UserRouter = (userService: UserService, logger: Logger) => {
     );
 
     router.get('/users',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'userService.findByName'),
         async (req: Request, res: Response, next: NextFunction) => {

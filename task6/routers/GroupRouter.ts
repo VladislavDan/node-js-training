@@ -6,6 +6,8 @@ import {serviceLoggerMiddleware} from '../common/serviceLoggerMiddleware.js';
 import {Logger} from 'winston';
 import {unhandledErrorLoggerMiddleware} from '../common/unhandledErrorLoggerMiddleware.js';
 import {checkTokenMiddleware} from '../common/checkTokenMiddleware.js';
+import cors from 'cors';
+import {corsOptions} from '../common/Constants.js';
 
 export const GroupRouter = (groupService: GroupService, logger: Logger) => {
     const schema = Joi.object().keys({
@@ -21,6 +23,7 @@ export const GroupRouter = (groupService: GroupService, logger: Logger) => {
         }
     );
     router.delete('/groups/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'groupService.deleteById'),
         async (req: Request, res: Response, next: NextFunction) => {
@@ -40,6 +43,7 @@ export const GroupRouter = (groupService: GroupService, logger: Logger) => {
     );
 
     router.put('/groups',
+        cors(corsOptions),
         checkTokenMiddleware(),
         validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'groupService.createGroup'),
@@ -55,6 +59,7 @@ export const GroupRouter = (groupService: GroupService, logger: Logger) => {
     );
 
     router.post('/groups/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'groupService.changeGroup'),
@@ -78,6 +83,7 @@ export const GroupRouter = (groupService: GroupService, logger: Logger) => {
     );
 
     router.get('/groups/:id',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'groupService.findById'),
         (req: Request, res: Response) => {
@@ -92,6 +98,7 @@ export const GroupRouter = (groupService: GroupService, logger: Logger) => {
     );
 
     router.get('/groups',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'groupService.getAll'),
         async (req: Request, res: Response, next: NextFunction) => {

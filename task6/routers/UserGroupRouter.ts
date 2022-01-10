@@ -6,6 +6,8 @@ import {serviceLoggerMiddleware} from '../common/serviceLoggerMiddleware.js';
 import {Logger} from 'winston';
 import {unhandledErrorLoggerMiddleware} from '../common/unhandledErrorLoggerMiddleware.js';
 import {checkTokenMiddleware} from '../common/checkTokenMiddleware.js';
+import cors from 'cors';
+import {corsOptions} from '../common/Constants.js';
 
 export const UserGroupRouter = (userGroupService: UserGroupService, logger: Logger) => {
     const schema = Joi.object().keys({
@@ -15,6 +17,7 @@ export const UserGroupRouter = (userGroupService: UserGroupService, logger: Logg
     const router = express.Router();
 
     router.put('/user-group',
+        cors(corsOptions),
         checkTokenMiddleware(),
         validationMiddleware(schema),
         serviceLoggerMiddleware(logger, 'userGroupService.addUsersToGroup'),
@@ -30,6 +33,7 @@ export const UserGroupRouter = (userGroupService: UserGroupService, logger: Logg
     );
 
     router.get('/user-group',
+        cors(corsOptions),
         checkTokenMiddleware(),
         serviceLoggerMiddleware(logger, 'userGroupService.getAll'),
         async (req: Request, res: Response, next: NextFunction) => {
