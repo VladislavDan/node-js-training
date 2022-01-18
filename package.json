@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "test": "jest",
     "babel": "./node_modules/.bin/babel task1.3 --out-dir lib --presets=@babel/env",
     "babel_task2.1": "./node_modules/.bin/babel task2.1 --out-dir lib --presets=@babel/env",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "task1.1": "nodemon task1.1/index.js",
     "task1.2": "nodemon task1.2/index.js",
     "task1.3.1": "npm run babel && nodemon lib/task1.1.js",
@@ -31,8 +31,11 @@
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
     "babel-eslint": "^8.2.6",
     "eslint": "^4.19.1",
+    "jest": "^27.4.7",
     "nodemon": "^2.0.13",
     "tsc-watch": "^4.5.0",
     "typescript": "^4.4.4"
