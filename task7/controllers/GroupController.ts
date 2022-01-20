@@ -25,7 +25,7 @@ export class GroupController {
         }
     };
 
-    changeGroup = async (req: Request, res: Response, next: NextFunction) => {
+    createNewGroup = async (req: Request, res: Response, next: NextFunction) => {
         try {
             await this.groupService.createGroup(req.body.name, req.body.permissions);
             res.status(204).json('Group created');
@@ -34,7 +34,7 @@ export class GroupController {
         }
     };
 
-    createNewGroup = async (req: Request, res: Response, next: NextFunction) => {
+    changeGroup = async (req: Request, res: Response, next: NextFunction) => {
         const foundGroup = req.body.group;
 
         if (!foundGroup) {
