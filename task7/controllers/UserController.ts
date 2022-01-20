@@ -24,7 +24,7 @@ export class UserController {
         }
     };
 
-    changeUser = async (req: Request, res: Response, next: NextFunction) => {
+    createUser = async (req: Request, res: Response, next: NextFunction) => {
         try {
             await this.userService.createUser(req.body.login, req.body.password, req.body.age, false);
             res.status(204).json('User created');
@@ -33,7 +33,7 @@ export class UserController {
         }
     };
 
-    createUser = async (req: Request, res: Response, next: NextFunction) => {
+    changeUser = async (req: Request, res: Response, next: NextFunction) => {
         const foundUser = req.user;
 
         if (!foundUser) {
