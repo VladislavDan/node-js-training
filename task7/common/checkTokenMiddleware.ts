@@ -4,7 +4,6 @@ import {SECRET} from './Constants.js';
 
 export const checkTokenMiddleware = () => {
     return (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.headers['x-access-token'])
         const token: any = req.headers['x-access-token'];
         if (!token) {
             return res.status(401).send({success: false, message: 'Not token provided'});

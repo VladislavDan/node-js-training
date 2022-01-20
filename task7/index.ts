@@ -11,6 +11,8 @@ import {UserGroupModel} from './models/UserGroupModel.js';
 import winston from 'winston';
 import {AuthenticateRouter} from './routers/AuthenticateRouter.js';
 import {AuthenticateService} from './services/AuthenticateService.js';
+import {UserController} from './controllers/UserController.js';
+import {GroupController} from './controllers/GroupController.js';
 
 const app = express();
 const port = 3000;
@@ -37,6 +39,6 @@ app.listen(port, () => {
 });
 
 app.use('/', AuthenticateRouter(new AuthenticateService(new UserModel())));
-app.use('/', UserRouter(new UserService(new UserModel()), logger));
-app.use('/', GroupRouter(new GroupService(new GroupModel()), logger));
+app.use('/', UserRouter(new UserController(new UserService(new UserModel())), logger));
+app.use('/', GroupRouter(new GroupController(new GroupService(new GroupModel())), logger));
 app.use('/', UserGroupRouter(new UserGroupService(new UserGroupModel()), logger));

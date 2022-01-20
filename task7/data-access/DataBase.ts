@@ -1,11 +1,21 @@
-import sequelize, { Sequelize } from 'sequelize';
-const { DataTypes } = sequelize;
+import dotenv from 'dotenv';
+dotenv.config({ debug: true });
+import sequelize, {Sequelize} from 'sequelize';
 
-export const DataBase = () => new Sequelize('users', 'postgres', 'postgres', {
-    host: "localhost",
-    dialect: 'postgres',
-    port: 5432
-});
+const {DataTypes} = sequelize;
+
+const nonTypedProcess: any = process;
+
+export const DataBase = () => new Sequelize(
+    nonTypedProcess.env.DATA_BASE,
+    nonTypedProcess.env.USER_NAME,
+    nonTypedProcess.env.PASSWORD,
+    {
+        host: nonTypedProcess.env.HOST,
+        dialect: 'postgres',
+        port: nonTypedProcess.env.PORT
+    }
+);
 
 export const Group = DataBase().define('group', {
     name: {

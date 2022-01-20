@@ -15,7 +15,8 @@
     "task3.1-3.2": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task3.1-3.2/index.js'",
     "task4": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task4/index.js'",
     "task5": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task5/index.js'",
-    "task6": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task6/index.js'"
+    "task6": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task6/index.js'",
+    "task7": "tsc-watch --project . --outDir ./dist --onSuccess 'nodemon ./dist/task7/index.js'"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "@types/uuid": "^8.3.1",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
+    "dotenv": "^14.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
     "joi": "^17.4.2",
